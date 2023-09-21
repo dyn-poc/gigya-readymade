@@ -1,0 +1,7 @@
+{
+  "name": "@wcd/dinavinter.1021-readymade-fork-lmtbr5nk",
+  "version": "0.0.0",
+  "scripts": {
+    "serve": "npx wcd-cli@latest serve nUZjoWjiKc4JSUrURiqh --open"
+  }
+}
