@@ -8,9 +8,11 @@ declare type gigya = any;
   selector: 'gigya-js',
   template: `
     <div>
-      <div id="logged-out" > <h3>Welcome</h3> </div> 
-      <div id="logged-in" hidden ><h3>Please Login</h3></div>
-      <div id="error" hidden><h3>Heta Pally</h3></div>
+       <slot id="loaded"  name="loaded" hidden> loaded! </slot> 
+
+      <slot id="logged-out"  name="logged-out">  </slot> 
+      <slot id="logged-in"  name="logged-in" hidden ><h3>Please Login</h3></slot>
+      <slot id="error" hidden  name="error" ><h3>Heta Pally</h3></slot>
       <script id="gigya-script" async crossOrigin="anonymous" src={{src}} ></script>
     </div>
   `,
@@ -56,12 +58,12 @@ $gigya: gigya;
     }
   }
   
-  connectedCallback() {
-    super.connectedCallback();
-    const scriptEl = this.shadowRoot.getElementById('gigya-script');
-    scriptEl.src = this.getUrl({ apiKey: this.apiKey, domain: this.domain });
-    scriptEl.onload = this.onLoadHandler.bind(this);
-  }
+  // connectedCallback() {
+  //   super.connectedCallback();
+  //   const scriptEl = this.shadowRoot.getElementById('gigya-script');
+  //   scriptEl.src = this.getUrl({ apiKey: this.apiKey, domain: this.domain });
+  //   scriptEl.onload = this.onLoadHandler.bind(this);
+  // }
 
   // @Listen('load', 'gigya-script')
   @Listen('onGigyaServiceReady')
@@ -73,7 +75,7 @@ $gigya: gigya;
       onLogin: this.onLoginHandler.bind(this),
       onLogout: this.onLogoutHandler.bind(this)
     });
-   
+   this.$state = "logged-out";
      this.emitter.broadcast(event, "loaded");
 
   }
